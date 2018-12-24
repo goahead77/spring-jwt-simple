@@ -4,17 +4,17 @@ import cn.wenqi.jwt.utils.Constant;
 import cn.wenqi.jwt.utils.JwtUtils;
 import cn.wenqi.jwt.utils.ResponseUtil;
 import com.alibaba.fastjson.JSONObject;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class UserService {
 	
-	private static final Logger logger = LogManager.getLogger(UserService.class);
-	
+
 	@Autowired
 	private JwtUtils jwt;
 
@@ -32,8 +32,15 @@ public class UserService {
 			jo.put("refreshToken", refreshToken);
 			return ResponseUtil.success(jo);
 		} catch (Exception e) {
-			logger.error(e);
+			log.error("错误：{}",e.getMessage());
 			return ResponseUtil.unKonwException();
 		}
+	}
+
+	@Async
+	public void syncMethod() throws InterruptedException {
+		log.info("进入异步方法");
+		Thread.sleep(3000);
+		log.info("结束异步方法");
 	}
 }

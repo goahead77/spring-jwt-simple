@@ -56,5 +56,10 @@ $(function () {
         if(user!=null && user!='')
             alert('保存成功');
     });
+
+    window.addEventListener('online',function (ev) {
+        console.log('网络恢复连接');
+        connect()
+    });
 });
 

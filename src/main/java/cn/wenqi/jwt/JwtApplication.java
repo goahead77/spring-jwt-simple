@@ -16,6 +16,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import java.util.Collections;
@@ -29,7 +30,7 @@ import java.util.UUID;
 @EnableAsync
 @EnableScheduling
 @Slf4j
-public class JwtApplication extends WebMvcConfigurerAdapter {
+public class JwtApplication implements WebMvcConfigurer {
 
     @Autowired
     private TokenInterceptor tokenInterceptor;
@@ -45,8 +46,7 @@ public class JwtApplication extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        super.addInterceptors(registry);
-//        registry.addInterceptor(tokenInterceptor).excludePathPatterns("/login","/token/**","/*");
+        registry.addInterceptor(tokenInterceptor).excludePathPatterns("/login","/token/**","/*");
     }
 
     @Autowired

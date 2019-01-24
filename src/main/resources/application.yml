@@ -3,6 +3,11 @@ server:
 spring:
   thymeleaf:
     cache: false
+  datasource:
+    url: jdbc:mysql://192.168.243.150:8066/shop
+    password: mycat
+    username: mycat
+    driver-class-name: com.mysql.jdbc.Driver
 ws:
   api-prefix: /api
   endpoint: /ws-endpoint
